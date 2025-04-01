@@ -9,6 +9,8 @@ import Account from './routes/Account';
 import CoinPage from './routes/CoinPage';
 import Footer from './components/Footer';
 import AuthContextProvider from './context/AuthContext';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   const [coins, setCoins] = useState([]);
@@ -39,6 +41,7 @@ const App = () => {
           <Route path='/account' element={<Account />} />
           <Route path='/coin/:coinId' element={<CoinPage />} />
         </Routes>
+        <ToastContainer /> {/* Add ToastContainer here */}
         <Footer/>
       </AuthContextProvider>
     </ThemeProvider>

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { doc, onSnapshot, updateDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import { UserContext } from "../context/AuthContext";
+import { toast } from "react-toastify";
 
 const SavedCoins = () => {
   const [coins, setCoins] = useState([]);
@@ -27,9 +28,13 @@ const SavedCoins = () => {
       const coinDoc = doc(db, "users", user.email);
       const filteredCoins = coins.filter((coin) => coin.id !== coinId);
       await updateDoc(coinDoc, { watchList: filteredCoins });
-    } 
-    catch (error) {
+
+      // Show success toast
+      toast.success("Coin removed from your watch list!");
+    } catch (error) {
       console.error("Error removing coin:", error);
+      // Show error toast
+      toast.error("Failed to remove coin. Please try again.");
     }
   };
 
