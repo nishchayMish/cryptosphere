@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/AuthContext';
 import { db } from '../firebase';
 import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
+import { toast } from "react-toastify";
 
 const CoinItem = ({ coin }) => {
   const { theme } = useContext(ThemeContext);
@@ -33,7 +34,7 @@ const CoinItem = ({ coin }) => {
       })
     }
     else{
-      alert('Please sign in to save a coin to your watch list')
+      alert('Sign in to save a coin')
     }
   }
 
@@ -50,9 +51,9 @@ const CoinItem = ({ coin }) => {
       </td>
       <td>{coin.market_cap_rank}</td>
       <td>
-        <div className='flex items-center'>
+        <div onClick={handleClick} className='flex items-center'>
           <img className='w-6 mr-2 rounded-full' src={coin.image} alt={coin.name} />
-          <p onClick={handleClick} className='hidden sm:table-cell hover:text-blue-500 hover:underline'>{coin.name}</p>
+          <p className='hidden sm:table-cell hover:text-blue-500 hover:underline'>{coin.name}</p>
         </div>
       </td>
       <td className='uppercase'>{coin.symbol}</td>
