@@ -35,7 +35,7 @@ const Account = () => {
         </div>
         <div className='my-12 py-8 px-6 bg-white dark:bg-gray-800 rounded-3xl shadow-xl'>
           <h1 className='text-3xl font-bold text-gray-900 dark:text-white py-4'>Saved Coins</h1>
-          <div className='w-full min-h-[300px] bg-gray-100 dark:bg-gray-700 rounded-xl p-6'>
+          <div className='w-full min-h-[200px] bg-gray-100 dark:bg-gray-700 rounded-xl sm:p-6'>
             <SavedCoins />
           </div>
         </div>

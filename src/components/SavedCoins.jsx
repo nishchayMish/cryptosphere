@@ -36,7 +36,7 @@ const SavedCoins = () => {
   return (
     <div className="p-4">
       {coins.length === 0 ? (
-        <p className="text-center text-gray-600">
+        <p className="text-center text-sm md:text-base">
           You don't have any coins saved. Save a coin to add it to your watch list.
           <Link to="/" className="underline text-blue-500 hover:text-blue-700 ml-1">
             Click here
@@ -44,37 +44,62 @@ const SavedCoins = () => {
           to search coins.
         </p>
       ) : (
-        <table className="w-full border-collapse text-left">
-          <thead>
-            <tr className="border-b bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
-              <th className="px-4 py-2">Rank#</th>
-              <th className="px-4 py-2">Coin</th>
-              <th className="px-4 py-2">Remove</th>
-            </tr>
-          </thead>
-          <tbody>
-            {coins.map((coin) => (
-              <tr key={coin.id} className="border-b h-[60px] hover:bg-gray-50 dark:hover:bg-gray-800 transition">
-                <td className="px-4 py-2">{coin?.rank}</td>
-                <td className="px-4 py-2">
-                  <Link to={`/coin/${coin.id}`} className="flex items-center">
-                    <img className="w-8 h-8 mr-4 rounded-full" src={coin?.image} alt={coin?.name} />
+        <div className="overflow-x-auto">
+          {/* Desktop View (Keeps the Table Format) */}
+          <table className="hidden md:table w-full border-collapse text-left">
+            <thead>
+              <tr className="border-b bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
+                <th className="px-4 py-2 text-center w-[10%]">Rank#</th>
+                <th className="px-4 py-2 w-[70%]">Coin</th>
+                <th className="px-4 py-2 text-center w-[20%]">Remove</th>
+              </tr>
+            </thead>
+            <tbody>
+              {coins.map((coin) => (
+                <tr key={coin.id} className="border-b hover:bg-gray-50 dark:hover:bg-gray-800 transition">
+                  <td className="px-4 py-3 text-center">{coin?.rank}</td>
+                  <td className="px-4 py-3 flex items-center space-x-3">
+                    <img className="w-8 h-8 rounded-full" src={coin?.image} alt={coin?.name} />
                     <div>
                       <p className="text-sm font-medium">{coin?.name}</p>
                       <p className="text-gray-500 text-xs uppercase">{coin?.symbol}</p>
                     </div>
-                  </Link>
-                </td>
-                <td className="px-4 py-2">
-                  <AiOutlineClose
-                    className="text-red-500 cursor-pointer hover:text-red-700 transition"
-                    onClick={() => removeCoin(coin.id)}
-                  />
-                </td>
-              </tr>
+                  </td>
+                  <td className="px-4 py-3 text-center">
+                    <button 
+                      onClick={() => removeCoin(coin.id)} 
+                      className="p-2 rounded-full bg-red-100 hover:bg-red-200 transition"
+                    >
+                      <AiOutlineClose className="text-red-500 text-lg md:text-xl" />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+          {/* Mobile View (Stacked Layout) */}
+          <div className="md:hidden flex flex-col gap-4">
+            {coins.map((coin) => (
+              <div key={coin.id} className="flex items-center justify-between bg-gray-100 dark:bg-gray-800 p-3 rounded-lg shadow">
+                <div className="flex items-center space-x-3">
+                  <span className="text-sm font-semibold">{coin?.rank}</span>
+                  <img className="w-8 h-8 rounded-full" src={coin?.image} alt={coin?.name} />
+                  <div>
+                    <p className="text-sm font-medium">{coin?.name}</p>
+                    <p className="text-gray-500 text-xs uppercase">{coin?.symbol}</p>
+                  </div>
+                </div>
+                <button 
+                  onClick={() => removeCoin(coin.id)} 
+                  className="p-2 rounded-full bg-red-100 hover:bg-red-200 transition"
+                >
+                  <AiOutlineClose className="text-red-500 text-lg" />
+                </button>
+              </div>
             ))}
-          </tbody>
-        </table>
+          </div>
+        </div>
       )}
     </div>
   );
